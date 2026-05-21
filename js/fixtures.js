@@ -1,7 +1,8 @@
 const Fixtures = (() => {
-  // const OPENFOOTBALL_URL = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
-  const OPENFOOTBALL_URL = 'http://localhost:8081';
-  const CACHE_KEY = 'wc2026_results';
+  const OPENFOOTBALL_URL =
+    "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
+  // const OPENFOOTBALL_URL = "http://localhost:8081";
+  const CACHE_KEY = "wc2026_results";
   const CACHE_TTL = 2 * 60 * 1000; // 2 minutes
 
   let matchData = null;
@@ -20,16 +21,19 @@ const Fixtures = (() => {
       const res = await fetch(OPENFOOTBALL_URL);
       const json = await res.json();
       matchData = json.matches || [];
-      localStorage.setItem(CACHE_KEY, JSON.stringify({ data: matchData, timestamp: Date.now() }));
+      localStorage.setItem(
+        CACHE_KEY,
+        JSON.stringify({ data: matchData, timestamp: Date.now() }),
+      );
       return matchData;
     } catch (e) {
-      console.error('Failed to fetch OpenFootball data:', e);
+      console.error("Failed to fetch OpenFootball data:", e);
       return matchData || [];
     }
   }
 
   function getPlayedMatches(matches) {
-    return matches.filter(m => m.score && m.score.ft);
+    return matches.filter((m) => m.score && m.score.ft);
   }
 
   function getRecentMatches(matches, count = 3) {
@@ -38,45 +42,49 @@ const Fixtures = (() => {
   }
 
   function getTodayMatches(matches) {
-    const today = new Date().toISOString().split('T')[0];
-    return matches.filter(m => m.date === today);
+    const today = new Date().toISOString().split("T")[0];
+    return matches.filter((m) => m.date === today);
   }
 
   function getLiveMatches(matches) {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     const now = new Date();
-    return matches.filter(m => {
+    return matches.filter((m) => {
       if (m.date !== today) return false;
       if (m.score && m.score.ft) return false; // already finished
       if (!m.time) return false;
-      const [hours, minutes] = m.time.split(':');
-      const matchStart = new Date(today + 'T' + hours + ':' + minutes + ':00');
+      const [hours, minutes] = m.time.split(":");
+      const matchStart = new Date(today + "T" + hours + ":" + minutes + ":00");
       return now >= matchStart;
     });
   }
 
   function renderTicker(matches) {
-    const ticker = document.getElementById('ticker');
+    const ticker = document.getElementById("ticker");
     const live = getLiveMatches(matches);
 
     if (live.length === 0) {
-      ticker.classList.add('hidden');
+      ticker.classList.add("hidden");
       return;
     }
 
-    ticker.classList.remove('hidden');
-    ticker.innerHTML = live.map(m => `
+    ticker.classList.remove("hidden");
+    ticker.innerHTML = live
+      .map(
+        (m) => `
       <div class="ticker-match">
         <span class="live-dot"></span>
         <span>${m.team1}</span>
-        <span>${m.score ? m.score.ft[0] + ' - ' + m.score.ft[1] : 'vs'}</span>
+        <span>${m.score ? m.score.ft[0] + " - " + m.score.ft[1] : "vs"}</span>
         <span>${m.team2}</span>
       </div>
-    `).join('');
+    `,
+      )
+      .join("");
   }
 
   function renderRecentFixtures(matches) {
-    const container = document.getElementById('recent-fixtures');
+    const container = document.getElementById("recent-fixtures");
     const recent = getRecentMatches(matches);
 
     if (recent.length === 0) {
@@ -84,18 +92,29 @@ const Fixtures = (() => {
       return;
     }
 
-    container.innerHTML = recent.map(m => `
+    container.innerHTML = recent
+      .map(
+        (m) => `
       <div class="fixture-card">
         <span class="team">${m.team1}</span>
         <span class="score">${m.score.ft[0]} - ${m.score.ft[1]}</span>
         <span class="team">${m.team2}</span>
       </div>
-    `).join('');
+    `,
+      )
+      .join("");
   }
 
   function getMatches() {
     return matchData || [];
   }
 
-  return { fetchResults, renderTicker, renderRecentFixtures, getPlayedMatches, getRecentMatches, getMatches };
+  return {
+    fetchResults,
+    renderTicker,
+    renderRecentFixtures,
+    getPlayedMatches,
+    getRecentMatches,
+    getMatches,
+  };
 })();

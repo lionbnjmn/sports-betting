@@ -248,6 +248,214 @@ header h1 {
   font-size: 0.85rem;
 }
 
+/* Nav */
+.nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1rem;
+}
+
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  margin-left: auto;
+}
+
+.burger span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #111;
+}
+
+.nav-menu {
+  display: none;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #111;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  min-width: 140px;
+}
+
+.nav-menu.open {
+  display: block;
+}
+
+.nav-menu li a {
+  display: block;
+  padding: 0.4rem 1rem;
+  color: #111;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.nav-menu li a:hover {
+  background: #f5f5f5;
+}
+
+/* Bracket */
+#bracket {
+  overflow-x: auto;
+}
+
+.bracket-round {
+  margin-bottom: 1.5rem;
+}
+
+.bracket-round h3 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.bracket-match {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.85rem;
+}
+
+.bracket-match:last-child {
+  border-bottom: none;
+}
+
+.bracket-match.empty {
+  color: #ccc;
+}
+
+.bracket-match span:first-child {
+  text-align: right;
+}
+
+.bracket-score {
+  font-weight: 700;
+  min-width: 2.5rem;
+  text-align: center;
+}
+
+/* Groups snap scroll */
+.groups-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+}
+
+.groups-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+
+.groups-scroll::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
+
+.group-card {
+  flex: 0 0 280px;
+  scroll-snap-align: start;
+  border: 1px solid #eee;
+  padding: 1rem;
+}
+
+.group-card h3 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.group-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.group-table th {
+  text-align: center;
+  padding: 0.25rem 0.3rem;
+  border-bottom: 1px solid #111;
+  font-weight: 700;
+}
+
+.group-table td {
+  text-align: center;
+  padding: 0.25rem 0.3rem;
+  border-bottom: 1px solid #eee;
+}
+
+.group-table .team-name {
+  text-align: left;
+  font-weight: 500;
+}
+
+.group-fixtures {
+  margin-top: 0.5rem;
+}
+
+.group-fixture {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  font-size: 0.75rem;
+}
+
+.group-fixture span:first-child {
+  text-align: right;
+}
+
+.gf-score {
+  font-weight: 700;
+  text-align: center;
+  min-width: 2rem;
+}
+
+.group-fixture.upcoming {
+  color: #999;
+}
+
+/* Rulebook */
+.rulebook-content h2 {
+  margin-top: 2rem;
+}
+
+.rulebook-content h2:first-child {
+  margin-top: 0;
+}
+
+.rulebook-content p {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.rulebook-content ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.rulebook-content li {
+  margin-bottom: 0.4rem;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
   main {
@@ -256,5 +464,9 @@ header h1 {
 
   header h1 {
     font-size: 1.2rem;
+  }
+
+  .group-card {
+    flex: 0 0 85vw;
   }
 }
