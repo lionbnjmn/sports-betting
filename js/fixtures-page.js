@@ -86,6 +86,24 @@
 
     renderBracket(matches);
     renderGroups(matches, teamsData);
+
+    // Wait for flag images to load before equalizing
+    const flags = document.querySelectorAll(".group-card .flag");
+    if (flags.length > 0) {
+      let loaded = 0;
+      const total = flags.length;
+      const onLoad = () => {
+        loaded++;
+        if (loaded >= total) equalizeGroupHeights();
+      };
+      flags.forEach((img) => {
+        if (img.complete) { loaded++; }
+        else { img.addEventListener("load", onLoad); img.addEventListener("error", onLoad); }
+      });
+      if (loaded >= total) requestAnimationFrame(equalizeGroupHeights);
+    } else {
+      requestAnimationFrame(equalizeGroupHeights);
+    }
   }
 
   function renderBracket(matches) {
@@ -286,6 +304,60 @@
     }
     html += "</div>";
     return html;
+  }
+
+  function equalizeGroupHeights() {
+    const cards = document.querySelectorAll(".group-card");
+    if (cards.length === 0) return;
+
+    // Reset heights first
+    cards.forEach((card) => {
+      card.querySelectorAll(".group-table tr").forEach((r) => (r.style.height = ""));
+      card.querySelectorAll(".group-fixture").forEach((r) => (r.style.height = ""));
+      const tbl = card.querySelector(".group-table");
+      if (tbl) tbl.style.height = "";
+    });
+
+    // Find max table height
+    let maxTableHeight = 0;
+    cards.forEach((card) => {
+      const tbl = card.querySelector(".group-table");
+      if (tbl) maxTableHeight = Math.max(maxTableHeight, tbl.offsetHeight);
+    });
+
+    // Set all tables to same height
+    cards.forEach((card) => {
+      const tbl = card.querySelector(".group-table");
+      if (tbl) tbl.style.height = maxTableHeight + "px";
+    });
+
+    // Equalize individual table row heights (row N across all cards)
+    const maxRows = 5; // header + 4 teams
+    for (let i = 0; i < maxRows; i++) {
+      let maxH = 0;
+      cards.forEach((card) => {
+        const rows = card.querySelectorAll(".group-table tr");
+        if (rows[i]) maxH = Math.max(maxH, rows[i].offsetHeight);
+      });
+      cards.forEach((card) => {
+        const rows = card.querySelectorAll(".group-table tr");
+        if (rows[i]) rows[i].style.height = maxH + "px";
+      });
+    }
+
+    // Equalize fixture row heights
+    const maxFixtures = 6;
+    for (let i = 0; i < maxFixtures; i++) {
+      let maxH = 0;
+      cards.forEach((card) => {
+        const fixtures = card.querySelectorAll(".group-fixture");
+        if (fixtures[i]) maxH = Math.max(maxH, fixtures[i].offsetHeight);
+      });
+      cards.forEach((card) => {
+        const fixtures = card.querySelectorAll(".group-fixture");
+        if (fixtures[i]) fixtures[i].style.height = maxH + "px";
+      });
+    }
   }
 
   document.addEventListener("DOMContentLoaded", init);
