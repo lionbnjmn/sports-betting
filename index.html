@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Cup 2026 — Predictions</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div id="ticker" class="ticker hidden"></div>
+
+    <main>
+      <header>
+        <h1>World Cup 2026</h1>
+        <p class="subtitle">Prediction Leaderboard</p>
+      </header>
+
+      <section id="leaderboard" class="section">
+        <h2>Leaderboard</h2>
+        <div id="leaderboard-table"></div>
+      </section>
+
+      <section id="recent" class="section">
+        <h2>Recent Fixtures</h2>
+        <div id="recent-fixtures"></div>
+        <div id="top-performers"></div>
+      </section>
+
+      <section id="predictions" class="section">
+        <h2>Predictions</h2>
+        <div class="search-container">
+          <select id="player-select">
+            <option value="">Select someone</option>
+          </select>
+        </div>
+        <div id="player-predictions"></div>
+      </section>
+    </main>
+
+    <script src="./js/scoring.js"></script>
+    <script src="./js/fixtures.js"></script>
+    <script src="./js/leaderboard.js"></script>
+    <script src="./js/predictions.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>
