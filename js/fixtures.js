@@ -1,5 +1,6 @@
 const Fixtures = (() => {
-  const OPENFOOTBALL_URL = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
+  // const OPENFOOTBALL_URL = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
+  const OPENFOOTBALL_URL = 'http://localhost:8081';
   const CACHE_KEY = 'wc2026_results';
   const CACHE_TTL = 2 * 60 * 1000; // 2 minutes
 

@@ -1,13 +1,18 @@
 const App = (() => {
   const PREDICTIONS_DIR = './data/predictions/';
-  const PLAYERS_INDEX = './data/predictions/index.json';
+  const PLAYERS_INDEX = './data/predictions/index.yml';
 
   async function loadPredictions() {
     try {
       const res = await fetch(PLAYERS_INDEX);
-      const playerFiles = await res.json();
+      const indexYaml = await res.text();
+      const playerFiles = jsyaml.load(indexYaml);
       const predictions = await Promise.all(
-        playerFiles.map(file => fetch(PREDICTIONS_DIR + file).then(r => r.json()))
+        playerFiles.map(async file => {
+          const r = await fetch(PREDICTIONS_DIR + file);
+          const text = await r.text();
+          return jsyaml.load(text);
+        })
       );
       return predictions;
     } catch (e) {

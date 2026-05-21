@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Cup 2026 — Fixtures</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <button class="burger" aria-label="Menu" onclick="document.querySelector('.nav-menu').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="./">Home</a></li>
+        <li><a href="./fixtures.html">Fixtures</a></li>
+        <li><a href="./rulebook.html">Rulebook</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <header>
+        <h1>World Cup 2026</h1>
+        <p class="subtitle">Fixtures & Bracket</p>
+      </header>
+
+      <section class="section">
+        <h2>Knockout Bracket</h2>
+        <div id="bracket"></div>
+      </section>
+
+      <section class="section">
+        <h2>Group Stage</h2>
+        <div class="groups-scroll" id="groups-container"></div>
+      </section>
+    </main>
+
+    <script src="./js/fixtures-page.js"></script>
+  </body>
+</html>
