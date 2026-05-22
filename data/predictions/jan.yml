@@ -1,0 +1,456 @@
+name: Jan
+group_stage:
+  A:
+    standings: [Mexico, South Africa, South Korea, Czech Republic]
+    matches:
+      - num: 1
+        team1: Mexico
+        team2: South Africa
+        score: [0, 0]
+      - num: 2
+        team1: South Korea
+        team2: Czech Republic
+        score: [0, 0]
+      - num: 3
+        team1: Czech Republic
+        team2: South Africa
+        score: [0, 0]
+      - num: 4
+        team1: Mexico
+        team2: South Korea
+        score: [0, 0]
+      - num: 5
+        team1: Czech Republic
+        team2: Mexico
+        score: [0, 0]
+      - num: 6
+        team1: South Africa
+        team2: South Korea
+        score: [0, 0]
+  B:
+    standings: [Canada, Bosnia & Herzegovina, Qatar, Switzerland]
+    matches:
+      - num: 7
+        team1: Canada
+        team2: Bosnia & Herzegovina
+        score: [0, 0]
+      - num: 8
+        team1: Qatar
+        team2: Switzerland
+        score: [0, 0]
+      - num: 9
+        team1: Switzerland
+        team2: Bosnia & Herzegovina
+        score: [0, 0]
+      - num: 10
+        team1: Canada
+        team2: Qatar
+        score: [0, 0]
+      - num: 11
+        team1: Switzerland
+        team2: Canada
+        score: [0, 0]
+      - num: 12
+        team1: Bosnia & Herzegovina
+        team2: Qatar
+        score: [0, 0]
+  C:
+    standings: [Brazil, Morocco, Haiti, Scotland]
+    matches:
+      - num: 13
+        team1: Brazil
+        team2: Morocco
+        score: [0, 0]
+      - num: 14
+        team1: Haiti
+        team2: Scotland
+        score: [0, 0]
+      - num: 15
+        team1: Scotland
+        team2: Morocco
+        score: [0, 0]
+      - num: 16
+        team1: Brazil
+        team2: Haiti
+        score: [0, 0]
+      - num: 17
+        team1: Scotland
+        team2: Brazil
+        score: [0, 0]
+      - num: 18
+        team1: Morocco
+        team2: Haiti
+        score: [0, 0]
+  D:
+    standings: [USA, Paraguay, Australia, Turkey]
+    matches:
+      - num: 19
+        team1: USA
+        team2: Paraguay
+        score: [0, 0]
+      - num: 20
+        team1: Australia
+        team2: Turkey
+        score: [0, 0]
+      - num: 21
+        team1: USA
+        team2: Australia
+        score: [0, 0]
+      - num: 22
+        team1: Turkey
+        team2: Paraguay
+        score: [0, 0]
+      - num: 23
+        team1: Turkey
+        team2: USA
+        score: [0, 0]
+      - num: 24
+        team1: Paraguay
+        team2: Australia
+        score: [0, 0]
+  E:
+    standings: [Germany, Curaçao, Ivory Coast, Ecuador]
+    matches:
+      - num: 25
+        team1: Germany
+        team2: Curaçao
+        score: [0, 0]
+      - num: 26
+        team1: Ivory Coast
+        team2: Ecuador
+        score: [0, 0]
+      - num: 27
+        team1: Germany
+        team2: Ivory Coast
+        score: [0, 0]
+      - num: 28
+        team1: Ecuador
+        team2: Curaçao
+        score: [0, 0]
+      - num: 29
+        team1: Curaçao
+        team2: Ivory Coast
+        score: [0, 0]
+      - num: 30
+        team1: Ecuador
+        team2: Germany
+        score: [0, 0]
+  F:
+    standings: [Netherlands, Japan, Sweden, Tunisia]
+    matches:
+      - num: 31
+        team1: Netherlands
+        team2: Japan
+        score: [0, 0]
+      - num: 32
+        team1: Sweden
+        team2: Tunisia
+        score: [0, 0]
+      - num: 33
+        team1: Netherlands
+        team2: Sweden
+        score: [0, 0]
+      - num: 34
+        team1: Tunisia
+        team2: Japan
+        score: [0, 0]
+      - num: 35
+        team1: Japan
+        team2: Sweden
+        score: [0, 0]
+      - num: 36
+        team1: Tunisia
+        team2: Netherlands
+        score: [0, 0]
+  G:
+    standings: [Belgium, Egypt, Iran, New Zealand]
+    matches:
+      - num: 37
+        team1: Belgium
+        team2: Egypt
+        score: [0, 0]
+      - num: 38
+        team1: Iran
+        team2: New Zealand
+        score: [0, 0]
+      - num: 39
+        team1: Belgium
+        team2: Iran
+        score: [0, 0]
+      - num: 40
+        team1: New Zealand
+        team2: Egypt
+        score: [0, 0]
+      - num: 41
+        team1: New Zealand
+        team2: Belgium
+        score: [0, 0]
+      - num: 42
+        team1: Egypt
+        team2: Iran
+        score: [0, 0]
+  H:
+    standings: [Spain, Cape Verde, Saudi Arabia, Uruguay]
+    matches:
+      - num: 43
+        team1: Spain
+        team2: Cape Verde
+        score: [0, 0]
+      - num: 44
+        team1: Saudi Arabia
+        team2: Uruguay
+        score: [0, 0]
+      - num: 45
+        team1: Spain
+        team2: Saudi Arabia
+        score: [0, 0]
+      - num: 46
+        team1: Uruguay
+        team2: Cape Verde
+        score: [0, 0]
+      - num: 47
+        team1: Cape Verde
+        team2: Saudi Arabia
+        score: [0, 0]
+      - num: 48
+        team1: Uruguay
+        team2: Spain
+        score: [0, 0]
+  I:
+    standings: [France, Senegal, Iraq, Norway]
+    matches:
+      - num: 49
+        team1: France
+        team2: Senegal
+        score: [0, 0]
+      - num: 50
+        team1: Iraq
+        team2: Norway
+        score: [0, 0]
+      - num: 51
+        team1: France
+        team2: Iraq
+        score: [0, 0]
+      - num: 52
+        team1: Norway
+        team2: Senegal
+        score: [0, 0]
+      - num: 53
+        team1: Norway
+        team2: France
+        score: [0, 0]
+      - num: 54
+        team1: Senegal
+        team2: Iraq
+        score: [0, 0]
+  J:
+    standings: [Argentina, Algeria, Austria, Jordan]
+    matches:
+      - num: 55
+        team1: Argentina
+        team2: Algeria
+        score: [0, 0]
+      - num: 56
+        team1: Austria
+        team2: Jordan
+        score: [0, 0]
+      - num: 57
+        team1: Argentina
+        team2: Austria
+        score: [0, 0]
+      - num: 58
+        team1: Jordan
+        team2: Algeria
+        score: [0, 0]
+      - num: 59
+        team1: Algeria
+        team2: Austria
+        score: [0, 0]
+      - num: 60
+        team1: Jordan
+        team2: Argentina
+        score: [0, 0]
+  K:
+    standings: [Portugal, DR Congo, Uzbekistan, Colombia]
+    matches:
+      - num: 61
+        team1: Portugal
+        team2: DR Congo
+        score: [0, 0]
+      - num: 62
+        team1: Uzbekistan
+        team2: Colombia
+        score: [0, 0]
+      - num: 63
+        team1: Portugal
+        team2: Uzbekistan
+        score: [0, 0]
+      - num: 64
+        team1: Colombia
+        team2: DR Congo
+        score: [0, 0]
+      - num: 65
+        team1: Colombia
+        team2: Portugal
+        score: [0, 0]
+      - num: 66
+        team1: DR Congo
+        team2: Uzbekistan
+        score: [0, 0]
+  L:
+    standings: [England, Croatia, Ghana, Panama]
+    matches:
+      - num: 67
+        team1: England
+        team2: Croatia
+        score: [0, 0]
+      - num: 68
+        team1: Ghana
+        team2: Panama
+        score: [0, 0]
+      - num: 69
+        team1: England
+        team2: Ghana
+        score: [0, 0]
+      - num: 70
+        team1: Panama
+        team2: Croatia
+        score: [0, 0]
+      - num: 71
+        team1: Panama
+        team2: England
+        score: [0, 0]
+      - num: 72
+        team1: Croatia
+        team2: Ghana
+        score: [0, 0]
+knockout:
+  round_of_32:
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+  round_of_16:
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+  quarter_finals:
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+  semi_finals:
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
+  final:
+    - team1: TBD
+      team2: TBD
+      winner: TBD
+      score: [0, 0]
