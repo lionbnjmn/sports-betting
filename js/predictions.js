@@ -44,7 +44,8 @@ const Predictions = (() => {
         html += `<div class="prediction-group"><h3>Group ${group}</h3>`;
         if (data.matches) {
           for (const pred of data.matches) {
-            const actual = results.find((m) => m.num === pred.num && m.score);
+            const key = (pred.team1 + "|" + pred.team2).toLowerCase();
+            const actual = results.find((m) => m.group === group && m.matchKey === key && m.score);
             let statusClass = "";
             let actualDisplay = "";
 
@@ -73,10 +74,11 @@ const Predictions = (() => {
 
             html += `
               <div class="prediction-match ${statusClass}">
+                <span class="actual-slot"></span>
                 <span class="team">${pred.team1}</span>
                 <span class="pred-score">${pred.score[0]} - ${pred.score[1]}</span>
                 <span class="team">${pred.team2}</span>
-                ${actualDisplay}
+                <span class="actual-slot">${actualDisplay}</span>
               </div>
             `;
           }

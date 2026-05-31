@@ -8,7 +8,11 @@
   </head>
   <body>
     <nav class="nav">
-      <button class="burger" aria-label="Menu" onclick="document.querySelector('.nav-menu').classList.toggle('open')">
+      <button
+        class="burger"
+        aria-label="Menu"
+        onclick="document.querySelector('.nav-menu').classList.toggle('open')"
+      >
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-menu">
@@ -26,17 +30,80 @@
 
       <section class="section rulebook-content">
         <h2>Point System</h2>
-        <p>Details coming soon. The scoring rules will be explained here.</p>
 
-        <h2>How It Works</h2>
-        <p>Before the tournament, each player submits predictions for every match score and group standings. Points are awarded based on accuracy as matches are played.</p>
-
-        <h2>Rules</h2>
+        <h3>Group Stage</h3>
         <ul>
-          <li>All predictions must be submitted before the first match kicks off (June 11, 2026).</li>
-          <li>No changes after the deadline.</li>
-          <li>The leaderboard updates automatically as results come in.</li>
+          <li>
+            <strong>1 point</strong> for each group match where the exact final
+            score is predicted correctly <strong>&rarr; 72 points total</strong>
+          </li>
+          <li>
+            <strong>1 point</strong> for each team's correctly predicted
+            position in the group final standings
+            <strong>&rarr; 48 points total</strong>
+          </li>
         </ul>
+
+        <h3>Knockout Stage</h3>
+        <p>
+          Each knockout game has 2<sup>ko-round</sup> points to win. Half of
+          those points are awarded for correctly picking the winner of the game,
+          and the other half for predicting the match's exact final score.
+        </p>
+        <table class="points-table">
+          <thead>
+            <tr>
+              <th>Round</th>
+              <th>Winner</th>
+              <th>Score</th>
+              <th>Points per game</th>
+              <th>Total points per round</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Round of 32</td>
+              <td>1</td>
+              <td>1</td>
+              <td>2</td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td>Round of 16</td>
+              <td>2</td>
+              <td>2</td>
+              <td>4</td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td>Quarter-final</td>
+              <td>4</td>
+              <td>4</td>
+              <td>8</td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td>Semi-final</td>
+              <td>8</td>
+              <td>8</td>
+              <td>16</td>
+              <td>32</td>
+            </tr>
+            <tr>
+              <td>Final</td>
+              <td>16</td>
+              <td>16</td>
+              <td>32</td>
+              <td>32</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="footnote">
+          For matches decided on penalties, we might shit on the score points
+          since it's annoying to implement and no-one will guess correctly
+          anyway. Also, Momo is barred from winning on accounts of being muslim
+          and knowing nothing about the game.
+        </p>
       </section>
     </main>
   </body>
