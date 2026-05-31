@@ -120,12 +120,12 @@
   function renderTable(rows) {
     if (rows.length === 0) return '<p class="no-data">No teams yet</p>';
     let html = `<table class="group-table">
-      <thead><tr><th></th><th>P</th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
+      <thead><tr><th></th><th>W</th><th>D</th><th>L</th><th>GD</th><th>Pts</th></tr></thead>
       <tbody>`;
     for (const r of rows) {
       html += `<tr>
         <td class="team-name">${r.flag} ${r.team}</td>
-        <td>${r.played}</td><td>${r.won}</td><td>${r.drawn}</td><td>${r.lost}</td>
+        <td>${r.won}</td><td>${r.drawn}</td><td>${r.lost}</td>
         <td>${r.gd >= 0 ? "+" : ""}${r.gd}</td>
         <td><strong>${r.pts}</strong></td>
       </tr>`;

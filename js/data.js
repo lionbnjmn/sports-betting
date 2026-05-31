@@ -2,7 +2,8 @@ const Data = (() => {
   const OPENFOOTBALL_URL =
     "https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json";
   // const OPENFOOTBALL_URL = "http://localhost:8081";
-  const TEAMS_URL = "./data/bracket/teams.json";
+  const ROOT = new URL("../", document.currentScript.src).href;
+  const TEAMS_URL = ROOT + "data/bracket/teams.json";
   const CACHE_KEY = "wc2026_results";
   const CACHE_TTL = 2 * 60 * 1000;
 

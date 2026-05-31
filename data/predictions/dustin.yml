@@ -1,7 +1,11 @@
 name: Dustin
 group_stage:
   A:
-    standings: [Mexico, South Africa, South Korea, Czech Republic]
+    standings:
+      - Mexico
+      - South Africa
+      - South Korea
+      - Czech Republic
     matches:
       - num: 1
         team1: Mexico
@@ -28,7 +32,11 @@ group_stage:
         team2: South Korea
         score: [0, 0]
   B:
-    standings: [Canada, Bosnia & Herzegovina, Qatar, Switzerland]
+    standings:
+      - Canada
+      - Bosnia & Herzegovina
+      - Qatar
+      - Switzerland
     matches:
       - num: 7
         team1: Canada
@@ -55,7 +63,11 @@ group_stage:
         team2: Qatar
         score: [0, 0]
   C:
-    standings: [Brazil, Morocco, Haiti, Scotland]
+    standings:
+      - Brazil
+      - Morocco
+      - Haiti
+      - Scotland
     matches:
       - num: 13
         team1: Brazil
@@ -82,7 +94,11 @@ group_stage:
         team2: Haiti
         score: [0, 0]
   D:
-    standings: [USA, Paraguay, Australia, Turkey]
+    standings:
+      - USA
+      - Paraguay
+      - Australia
+      - Turkey
     matches:
       - num: 19
         team1: USA
@@ -109,7 +125,11 @@ group_stage:
         team2: Australia
         score: [0, 0]
   E:
-    standings: [Germany, Curaçao, Ivory Coast, Ecuador]
+    standings:
+      - Germany
+      - Curaçao
+      - Ivory Coast
+      - Ecuador
     matches:
       - num: 25
         team1: Germany
@@ -136,7 +156,11 @@ group_stage:
         team2: Germany
         score: [0, 0]
   F:
-    standings: [Netherlands, Japan, Sweden, Tunisia]
+    standings:
+      - Netherlands
+      - Japan
+      - Sweden
+      - Tunisia
     matches:
       - num: 31
         team1: Netherlands
@@ -163,7 +187,11 @@ group_stage:
         team2: Netherlands
         score: [0, 0]
   G:
-    standings: [Belgium, Egypt, Iran, New Zealand]
+    standings:
+      - Belgium
+      - Egypt
+      - Iran
+      - New Zealand
     matches:
       - num: 37
         team1: Belgium
@@ -190,7 +218,11 @@ group_stage:
         team2: Iran
         score: [0, 0]
   H:
-    standings: [Spain, Cape Verde, Saudi Arabia, Uruguay]
+    standings:
+      - Spain
+      - Cape Verde
+      - Saudi Arabia
+      - Uruguay
     matches:
       - num: 43
         team1: Spain
@@ -217,7 +249,11 @@ group_stage:
         team2: Spain
         score: [0, 0]
   I:
-    standings: [France, Senegal, Iraq, Norway]
+    standings:
+      - France
+      - Senegal
+      - Iraq
+      - Norway
     matches:
       - num: 49
         team1: France
@@ -244,7 +280,11 @@ group_stage:
         team2: Iraq
         score: [0, 0]
   J:
-    standings: [Argentina, Algeria, Austria, Jordan]
+    standings:
+      - Argentina
+      - Algeria
+      - Austria
+      - Jordan
     matches:
       - num: 55
         team1: Argentina
@@ -271,7 +311,11 @@ group_stage:
         team2: Argentina
         score: [0, 0]
   K:
-    standings: [Portugal, DR Congo, Uzbekistan, Colombia]
+    standings:
+      - Portugal
+      - DR Congo
+      - Uzbekistan
+      - Colombia
     matches:
       - num: 61
         team1: Portugal
@@ -298,7 +342,11 @@ group_stage:
         team2: Uzbekistan
         score: [0, 0]
   L:
-    standings: [England, Croatia, Ghana, Panama]
+    standings:
+      - England
+      - Croatia
+      - Ghana
+      - Panama
     matches:
       - num: 67
         team1: England

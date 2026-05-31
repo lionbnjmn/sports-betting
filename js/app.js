@@ -1,6 +1,7 @@
 const App = (() => {
-  const PREDICTIONS_DIR = "./data/predictions/";
-  const PLAYERS_INDEX = "./data/predictions/index.yml";
+  const ROOT = new URL("../", document.currentScript.src).href;
+  const PREDICTIONS_DIR = ROOT + "data/predictions/";
+  const PLAYERS_INDEX = ROOT + "data/predictions/index.yml";
 
   async function loadPredictions() {
     try {
