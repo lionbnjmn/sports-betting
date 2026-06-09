@@ -137,7 +137,7 @@ group_stage:
       - num: 26
         team1: Ivory Coast
         team2: Ecuador
-        score: [2, 1]
+        score: [1, 0]
       - num: 27
         team1: Germany
         team2: Ivory Coast
@@ -145,7 +145,7 @@ group_stage:
       - num: 28
         team1: Ecuador
         team2: Curaçao
-        score: [3, 0]
+        score: [2, 0]
       - num: 29
         team1: Curaçao
         team2: Ivory Coast
