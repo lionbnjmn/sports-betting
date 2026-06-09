@@ -12,7 +12,9 @@ const App = (() => {
         playerFiles.map(async (file) => {
           const r = await fetch(PREDICTIONS_DIR + file);
           const text = await r.text();
-          return jsyaml.load(text);
+          const data = jsyaml.load(text);
+          data.name = file.replace(/\.ya?ml$/, "");
+          return data;
         }),
       );
       return predictions;

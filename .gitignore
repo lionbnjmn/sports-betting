@@ -1,3 +1,6 @@
 .DS_Store
 mock_server.py
 testing.py
+.venv
+exploratory/
+.vscode
