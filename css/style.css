@@ -561,6 +561,39 @@ header h1 {
   font-style: italic;
 }
 
+/* Files */
+.files-list {
+  border-top: 1px solid #111;
+}
+
+.file-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.file-row .file-name {
+  font-weight: 400;
+}
+
+.file-row .file-open {
+  color: #111;
+  text-decoration: underline;
+  font-size: 0.85rem;
+}
+
+.file-row .file-open:hover {
+  color: #666;
+}
+
+.file-row .file-missing {
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
 /* Desktop layout */
 @media (min-width: 900px) {
   .bracket-tree {

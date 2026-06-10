@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Cup 2026 — Raw Prediction Files</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <button
+        class="burger"
+        aria-label="Menu"
+        onclick="document.querySelector('.nav-menu').classList.toggle('open')"
+      >
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="../">Home</a></li>
+        <li><a href="../fixtures/">Fixtures</a></li>
+        <li><a href="../rulebook/">Rulebook</a></li>
+        <li><a href="../files/">Files</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <header>
+        <h1>World Cup 2026</h1>
+        <p class="subtitle">Raw Prediction Files</p>
+      </header>
+
+      <section class="section">
+        <div id="files-list" class="files-list">
+          <p class="no-data">Loading…</p>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+    <script>
+      (async () => {
+        const container = document.getElementById("files-list");
+        const EXTS = ["pdf", "jpg", "jpeg", "png", "txt"];
+
+        async function findFile(name) {
+          for (const ext of EXTS) {
+            const url = `../data/predictions_raw/${encodeURIComponent(name)}.${ext}`;
+            try {
+              const r = await fetch(url, { method: "HEAD" });
+              if (r.ok) return url;
+            } catch (_) {}
+          }
+          return null;
+        }
+
+        try {
+          const res = await fetch("../data/predictions/index.yml");
+          if (!res.ok) throw new Error("index.yml not found");
+          const text = await res.text();
+          const entries = jsyaml.load(text) || [];
+          const names = entries.map((f) => f.replace(/\.yml$/i, ""));
+          names.sort((a, b) => a.localeCompare(b));
+
+          if (!names.length) {
+            container.innerHTML = '<p class="no-data">No files.</p>';
+            return;
+          }
+
+          const resolved = await Promise.all(
+            names.map(async (name) => ({ name, url: await findFile(name) }))
+          );
+
+          container.innerHTML = resolved
+            .map(({ name, url }) => {
+              const link = url
+                ? `<a class="file-open" href="${url}" target="_blank" rel="noopener">open</a>`
+                : `<span class="file-missing">—</span>`;
+              return `<div class="file-row"><span class="file-name">${name}</span>${link}</div>`;
+            })
+            .join("");
+        } catch (err) {
+          container.innerHTML = '<p class="no-data">Failed to load file list.</p>';
+        }
+      })();
+    </script>
+  </body>
+</html>
