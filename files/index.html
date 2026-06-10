@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>World Cup 2026 — Raw Prediction Files</title>
+    <title>World Cup 2026 — Raw Submission Files</title>
     <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
@@ -16,7 +16,7 @@
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-menu">
-        <li><a href="../">Home</a></li>
+        <li><a href="../">Leaderboard</a></li>
         <li><a href="../fixtures/">Fixtures</a></li>
         <li><a href="../rulebook/">Rulebook</a></li>
         <li><a href="../files/">Files</a></li>
@@ -26,7 +26,7 @@
     <main>
       <header>
         <h1>World Cup 2026</h1>
-        <p class="subtitle">Raw Prediction Files</p>
+        <p class="subtitle">Raw Submission Files</p>
       </header>
 
       <section class="section">
@@ -67,7 +67,7 @@
           }
 
           const resolved = await Promise.all(
-            names.map(async (name) => ({ name, url: await findFile(name) }))
+            names.map(async (name) => ({ name, url: await findFile(name) })),
           );
 
           container.innerHTML = resolved
@@ -79,7 +79,8 @@
             })
             .join("");
         } catch (err) {
-          container.innerHTML = '<p class="no-data">Failed to load file list.</p>';
+          container.innerHTML =
+            '<p class="no-data">Failed to load file list.</p>';
         }
       })();
     </script>
