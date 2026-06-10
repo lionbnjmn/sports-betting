@@ -55,20 +55,10 @@ const Predictions = (() => {
               const actHome = actual.score.ft[0];
               const actAway = actual.score.ft[1];
 
-              const predOutcome =
-                predHome > predAway
-                  ? "home"
-                  : predHome < predAway
-                    ? "away"
-                    : "draw";
-              const actOutcome =
-                actHome > actAway
-                  ? "home"
-                  : actHome < actAway
-                    ? "away"
-                    : "draw";
-
-              statusClass = predOutcome === actOutcome ? "correct" : "wrong";
+              statusClass =
+                predHome === actHome && predAway === actAway
+                  ? "correct"
+                  : "wrong";
               actualDisplay = `<span class="actual-score">(${actHome}-${actAway})</span>`;
             }
 
