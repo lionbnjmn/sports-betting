@@ -46,10 +46,11 @@
       if (m.num != null) byNum.set(m.num, m);
     }
 
-    function teamHtml(name) {
+    function teamHtml(name, goal) {
       const fifa = Data.getFifaCodeByName(name);
       const flag = fifa ? Data.flagImg(fifa) : "";
-      return `<span class="bm-team">${flag}${name}</span>`;
+      const goalHtml = goal != null ? `<span class="bm-goal">${goal}</span>` : "";
+      return `<span class="bm-team"><span class="bm-team-name">${flag}${name}</span>${goalHtml}</span>`;
     }
 
     function slotHtml(m) {
@@ -58,12 +59,12 @@
       const t1Known = !!Data.getFifaCodeByName(m.team1);
       const t2Known = !!Data.getFifaCodeByName(m.team2);
       const isEmpty = !hasScore && !(t1Known && t2Known);
-      const score = hasScore ? `${m.score.ft[0]} - ${m.score.ft[1]}` : "vs";
+      const [g1, g2] = hasScore ? m.score.ft : [null, null];
       return `
-        <div class="bracket-match${isEmpty ? " empty" : ""}">
-          ${teamHtml(m.team1)}
-          <span class="bm-score">${score}</span>
-          ${teamHtml(m.team2)}
+        <div class="bracket-match${isEmpty ? " empty" : ""}${hasScore ? " resolved" : ""}">
+          ${teamHtml(m.team1, g1)}
+          <span class="bm-score">vs</span>
+          ${teamHtml(m.team2, g2)}
         </div>
       `;
     }

@@ -167,7 +167,8 @@ const Data = (() => {
       nameIndex = new Map();
       for (const t of teams) {
         nameIndex.set(t.name.toLowerCase(), t.fifa_code);
-        if (t.name_normalised) nameIndex.set(t.name_normalised.toLowerCase(), t.fifa_code);
+        if (t.name_normalised)
+          nameIndex.set(t.name_normalised.toLowerCase(), t.fifa_code);
       }
     }
     return nameIndex.get((name || "").toLowerCase()) || null;
