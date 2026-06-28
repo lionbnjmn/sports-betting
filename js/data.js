@@ -60,6 +60,7 @@ const Data = (() => {
 
   let matches = null;
   let teams = null;
+  let nameIndex = null;
 
   function parseTime(timeStr, dateStr) {
     const [hhmm, utcPart] = timeStr.split(" ");
@@ -160,6 +161,18 @@ const Data = (() => {
     });
   }
 
+  function getFifaCodeByName(name) {
+    if (!teams) return null;
+    if (!nameIndex) {
+      nameIndex = new Map();
+      for (const t of teams) {
+        nameIndex.set(t.name.toLowerCase(), t.fifa_code);
+        if (t.name_normalised) nameIndex.set(t.name_normalised.toLowerCase(), t.fifa_code);
+      }
+    }
+    return nameIndex.get((name || "").toLowerCase()) || null;
+  }
+
   function flagImg(fifaCode) {
     const iso = FIFA_TO_ISO[fifaCode];
     if (!iso) return "";
@@ -184,6 +197,7 @@ const Data = (() => {
     getRecentMatches,
     getLiveMatches,
     flagImg,
+    getFifaCodeByName,
     findTeamName,
   };
 })();

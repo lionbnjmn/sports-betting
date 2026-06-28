@@ -27,50 +27,53 @@
     }
   }
 
+  const BRACKET_COLUMNS = [
+    { label: "R32",   nums: [74, 77, 73, 75, 83, 84, 81, 82] },
+    { label: "R16",   nums: [89, 90, 93, 94] },
+    { label: "QF",    nums: [97, 98] },
+    { label: "SF",    nums: [101] },
+    { label: "Final", nums: [104] },
+    { label: "SF",    nums: [102] },
+    { label: "QF",    nums: [99, 100] },
+    { label: "R16",   nums: [91, 92, 95, 96] },
+    { label: "R32",   nums: [76, 78, 79, 80, 86, 88, 85, 87] },
+  ];
+
   function renderBracket() {
     const container = document.getElementById("bracket");
-    const allMatches = Data.getMatches();
-
-    const r32 = allMatches.filter(m => m.round === "Round of 32").sort((a, b) => a.num - b.num);
-    const r16 = allMatches.filter(m => m.round === "Round of 16").sort((a, b) => a.num - b.num);
-    const qf = allMatches.filter(m => m.round === "Quarter-final").sort((a, b) => a.num - b.num);
-    const sf = allMatches.filter(m => m.round === "Semi-final").sort((a, b) => a.num - b.num);
-    const final = allMatches.filter(m => m.round === "Final");
-
-    function toSlot(m) {
-      const hasScore = m.score && m.score.ft;
-      return {
-        team1: m.team1,
-        team2: m.team2,
-        score: hasScore ? `${m.score.ft[0]} - ${m.score.ft[1]}` : "vs",
-        empty: !hasScore,
-      };
+    const byNum = new Map();
+    for (const m of Data.getMatches()) {
+      if (m.num != null) byNum.set(m.num, m);
     }
 
-    const cols = [
-      { label: "R32",   matches: r32.slice(0, 8).map(toSlot) },
-      { label: "R16",   matches: r16.slice(0, 4).map(toSlot) },
-      { label: "QF",    matches: qf.slice(0, 2).map(toSlot) },
-      { label: "SF",    matches: sf.slice(0, 1).map(toSlot) },
-      { label: "Final", matches: final.map(toSlot) },
-      { label: "SF",    matches: sf.slice(1, 2).map(toSlot) },
-      { label: "QF",    matches: qf.slice(2, 4).map(toSlot) },
-      { label: "R16",   matches: r16.slice(4, 8).map(toSlot) },
-      { label: "R32",   matches: r32.slice(8, 16).map(toSlot) },
-    ];
+    function teamHtml(name) {
+      const fifa = Data.getFifaCodeByName(name);
+      const flag = fifa ? Data.flagImg(fifa) : "";
+      return `<span class="bm-team">${flag}${name}</span>`;
+    }
+
+    function slotHtml(m) {
+      if (!m) return `<div class="bracket-match empty"><span class="bm-team"></span><span class="bm-score">vs</span><span class="bm-team"></span></div>`;
+      const hasScore = !!(m.score && m.score.ft);
+      const t1Known = !!Data.getFifaCodeByName(m.team1);
+      const t2Known = !!Data.getFifaCodeByName(m.team2);
+      const isEmpty = !hasScore && !(t1Known && t2Known);
+      const score = hasScore ? `${m.score.ft[0]} - ${m.score.ft[1]}` : "vs";
+      return `
+        <div class="bracket-match${isEmpty ? " empty" : ""}">
+          ${teamHtml(m.team1)}
+          <span class="bm-score">${score}</span>
+          ${teamHtml(m.team2)}
+        </div>
+      `;
+    }
 
     let html = '<div class="bracket-tree">';
-    for (const col of cols) {
+    for (const col of BRACKET_COLUMNS) {
       html += `<div class="bracket-col">`;
       html += `<span class="bracket-col-label">${col.label}</span>`;
-      for (const m of col.matches) {
-        html += `
-          <div class="bracket-match${m.empty ? " empty" : ""}">
-            <span class="bm-team">${m.team1}</span>
-            <span class="bm-score">${m.score}</span>
-            <span class="bm-team">${m.team2}</span>
-          </div>
-        `;
+      for (const num of col.nums) {
+        html += slotHtml(byNum.get(num));
       }
       html += `</div>`;
     }
