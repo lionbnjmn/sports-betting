@@ -7,22 +7,28 @@ const Scoring = (() => {
     final: 32,
   };
 
-  const ROUND_NUM_RANGES = {
-    round_of_32: [73, 88],
-    round_of_16: [89, 96],
-    quarter_finals: [97, 100],
-    semi_finals: [101, 102],
-  };
+  function getRoundForNum(num) {
+    if (num >= 73 && num <= 88) return "round_of_32";
+    if (num >= 89 && num <= 96) return "round_of_16";
+    if (num >= 97 && num <= 100) return "quarter_finals";
+    if (num >= 101 && num <= 102) return "semi_finals";
+    if (num === 104) return "final";
+    return null;
+  }
 
-  function getActualKOMatch(round, index, results) {
-    if (round === "final") {
-      return results.find((m) => m.round === "Final");
+  function parseScore(s) {
+    if (s == null) return null;
+    if (Array.isArray(s) && s.length === 2) {
+      const a = Number(s[0]);
+      const b = Number(s[1]);
+      if (Number.isFinite(a) && Number.isFinite(b)) return [a, b];
+      return null;
     }
-    const range = ROUND_NUM_RANGES[round];
-    if (!range) return null;
-    const num = range[0] + index;
-    if (num > range[1]) return null;
-    return results.find((m) => m.num === num);
+    if (typeof s === "string") {
+      const m = s.match(/^\s*(\d+)\s*[-:]\s*(\d+)\s*$/);
+      if (m) return [parseInt(m[1], 10), parseInt(m[2], 10)];
+    }
+    return null;
   }
 
   function finalScore(score) {
@@ -54,11 +60,26 @@ const Scoring = (() => {
     return null;
   }
 
+  function predictedWinnerName(pred) {
+    const sc = parseScore(pred.score);
+    if (!sc) return null;
+    if (sc[0] > sc[1]) return pred.team1;
+    if (sc[1] > sc[0]) return pred.team2;
+    return null;
+  }
+
   function findGroupMatch(pred, group, results) {
     const key = (pred.team1 + "|" + pred.team2).toLowerCase();
     return results.find(
       (m) => m.group === group && m.matchKey === key && m.score,
     );
+  }
+
+  function findActualByNum(num, results) {
+    const byNum = results.find((m) => m.num === num);
+    if (byNum) return byNum;
+    if (num === 104) return results.find((m) => m.round === "Final");
+    return null;
   }
 
   function groupMatchPoints(pred, actual) {
@@ -88,15 +109,17 @@ const Scoring = (() => {
     const half = total / 2;
 
     let pts = 0;
-    const winner = actualWinnerName(actual);
-    if (winner && pred.winner && pred.winner !== "TBD") {
-      if (pred.winner.toLowerCase() === winner.toLowerCase()) {
-        pts += half;
-      }
+    const actualWinner = actualWinnerName(actual);
+    const predWinner = predictedWinnerName(pred);
+    if (actualWinner && predWinner &&
+        predWinner.toLowerCase() === actualWinner.toLowerCase()) {
+      pts += half;
     }
 
+    const predScore = parseScore(pred.score);
     const fs = finalScore(actual.score);
-    if (fs && pred.score && pred.score[0] === fs[0] && pred.score[1] === fs[1]) {
+    if (predScore && fs &&
+        predScore[0] === fs[0] && predScore[1] === fs[1]) {
       pts += half;
     }
     return pts;
@@ -128,14 +151,12 @@ const Scoring = (() => {
       }
     }
 
-    if (playerPredictions.knockout) {
-      for (const round of Object.keys(ROUND_POINTS)) {
-        const preds = playerPredictions.knockout[round];
-        if (!preds) continue;
-        preds.forEach((pred, i) => {
-          const actual = getActualKOMatch(round, i, results);
-          breakdown[round] += knockoutMatchPoints(pred, actual, round);
-        });
+    if (Array.isArray(playerPredictions.knockout)) {
+      for (const pred of playerPredictions.knockout) {
+        const round = getRoundForNum(pred.num);
+        if (!round) continue;
+        const actual = findActualByNum(pred.num, results);
+        breakdown[round] += knockoutMatchPoints(pred, actual, round);
       }
     }
 
@@ -168,27 +189,16 @@ const Scoring = (() => {
       return groupMatchPoints(pred, match);
     }
 
-    if (!playerPredictions.knockout) return 0;
+    if (!Array.isArray(playerPredictions.knockout)) return 0;
 
-    let round = null;
-    let index = -1;
-    if (match.round === "Final") {
-      round = "final";
-      index = 0;
-    } else if (match.num != null) {
-      for (const [r, [lo, hi]] of Object.entries(ROUND_NUM_RANGES)) {
-        if (match.num >= lo && match.num <= hi) {
-          round = r;
-          index = match.num - lo;
-          break;
-        }
-      }
-    }
+    let num = match.num;
+    if (num == null && match.round === "Final") num = 104;
+    if (num == null) return 0;
+    const round = getRoundForNum(num);
     if (!round) return 0;
-
-    const preds = playerPredictions.knockout[round];
-    if (!preds || !preds[index]) return 0;
-    return knockoutMatchPoints(preds[index], match, round);
+    const pred = playerPredictions.knockout.find((p) => p.num === num);
+    if (!pred) return 0;
+    return knockoutMatchPoints(pred, match, round);
   }
 
   return { calculatePoints, calculateAllPlayers, getPointsForMatch };

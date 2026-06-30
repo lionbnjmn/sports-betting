@@ -372,132 +372,137 @@ group_stage:
         team2: Ghana
         score: [2, 1]
 knockout:
-  round_of_32:
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-  round_of_16:
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-  quarter_finals:
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-  semi_finals:
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
-  final:
-    - team1: TBD
-      team2: TBD
-      winner: TBD
-      score: [0, 0]
+  # Round of 32
+  - num: 73
+    team1: South Africa
+    team2: Canada
+    score:
+  - num: 74
+    team1: Germany
+    team2: Paraguay
+    score:
+  - num: 75
+    team1: Netherlands
+    team2: Morocco
+    score:
+  - num: 76
+    team1: Brazil
+    team2: Japan
+    score:
+  - num: 77
+    team1: France
+    team2: Sweden
+    score:
+  - num: 78
+    team1: Ivory Coast
+    team2: Norway
+    score:
+  - num: 79
+    team1: Mexico
+    team2: Ecuador
+    score:
+  - num: 80
+    team1: England
+    team2: DR Congo
+    score:
+  - num: 81
+    team1: USA
+    team2: Bosnia & Herzegovina
+    score:
+  - num: 82
+    team1: Belgium
+    team2: Senegal
+    score:
+  - num: 83
+    team1: Portugal
+    team2: Croatia
+    score:
+  - num: 84
+    team1: Spain
+    team2: Austria
+    score:
+  - num: 85
+    team1: Switzerland
+    team2: Algeria
+    score:
+  - num: 86
+    team1: Argentina
+    team2: Cape Verde
+    score:
+  - num: 87
+    team1: Colombia
+    team2: Ghana
+    score:
+  - num: 88
+    team1: Australia
+    team2: Egypt
+    score:
+  # Round of 16
+  - num: 89
+    team1: W74
+    team2: W77
+    score:
+  - num: 90
+    team1: W73
+    team2: W75
+    score:
+  - num: 91
+    team1: W76
+    team2: W78
+    score:
+  - num: 92
+    team1: W79
+    team2: W80
+    score:
+  - num: 93
+    team1: W83
+    team2: W84
+    score:
+  - num: 94
+    team1: W81
+    team2: W82
+    score:
+  - num: 95
+    team1: W86
+    team2: W88
+    score:
+  - num: 96
+    team1: W85
+    team2: W87
+    score:
+  # Quarter-finals
+  - num: 97
+    team1: W89
+    team2: W90
+    score:
+  - num: 98
+    team1: W93
+    team2: W94
+    score:
+  - num: 99
+    team1: W91
+    team2: W92
+    score:
+  - num: 100
+    team1: W95
+    team2: W96
+    score:
+  # Semi-finals
+  - num: 101
+    team1: W97
+    team2: W98
+    score:
+  - num: 102
+    team1: W99
+    team2: W100
+    score:
+  # Third place
+  - num: 103
+    team1: L101
+    team2: L102
+    score:
+  # Final
+  - num: 104
+    team1: W101
+    team2: W102
+    score:

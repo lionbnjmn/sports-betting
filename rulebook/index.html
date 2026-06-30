@@ -41,9 +41,19 @@
             <strong>&rarr; 72 points total</strong>
           </li>
           <li>
-            <strong>1 point</strong> for each team's correctly predicted
-            position in the group final standings
-            <br />
+            For each team in a group's final standings, up to
+            <strong>1 point</strong> is awarded:
+            <ul>
+              <li>
+                <strong>0.5 points</strong> for predicting the team's exact
+                finishing position (1st, 2nd, 3rd, or 4th)
+              </li>
+              <li>
+                <strong>0.5 points</strong> for correctly placing the team in
+                the top half (1st or 2nd) or bottom half (3rd or 4th) of the
+                group
+              </li>
+            </ul>
             <strong>&rarr; 48 points total</strong>
           </li>
         </ul>
@@ -108,8 +118,10 @@
         <h3>Notes</h3>
         <ul>
           <li>
-            For matches decided on penalties, we ignore score points since it's
-            annoying to implement and no-one will guess correctly anyway.
+            For knockout matches, the score half-point is awarded based on the
+            score after extra time (or after 90 minutes if no extra time was
+            played). The winner half-point reflects who actually advanced,
+            including via penalties.
           </li>
           <li>
             Momo is barred from winning on accounts of being Muslim and knowing
