@@ -188,6 +188,78 @@ const Data = (() => {
     return null;
   }
 
+  function buildGroupTable(group) {
+    const groupTeams = getTeamsByGroup(group);
+    const groupMatches = getMatchesByGroup(group);
+    const stats = {};
+    for (const t of groupTeams) {
+      stats[t.name] = {
+        team: t.name,
+        fifaCode: t.fifa_code,
+        played: 0, won: 0, drawn: 0, lost: 0,
+        gf: 0, ga: 0, pts: 0,
+      };
+    }
+    for (const m of groupMatches) {
+      if (!m.score || !m.score.ft) continue;
+      const [h, a] = m.score.ft;
+      const t1 = findTeamName(m.team1, stats);
+      const t2 = findTeamName(m.team2, stats);
+      if (!t1 || !t2) continue;
+      stats[t1].played++; stats[t2].played++;
+      stats[t1].gf += h; stats[t1].ga += a;
+      stats[t2].gf += a; stats[t2].ga += h;
+      if (h > a)      { stats[t1].won++;   stats[t1].pts += 3; stats[t2].lost++; }
+      else if (h < a) { stats[t2].won++;   stats[t2].pts += 3; stats[t1].lost++; }
+      else            { stats[t1].drawn++; stats[t2].drawn++; stats[t1].pts++; stats[t2].pts++; }
+    }
+    const rows = Object.values(stats).map((s) => ({
+      ...s,
+      flag: flagImg(s.fifaCode),
+      gd: s.gf - s.ga,
+    }));
+    rows.sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
+    return applyHeadToHead(rows, groupMatches);
+  }
+
+  function applyHeadToHead(rows, groupMatches) {
+    const out = [];
+    let i = 0;
+    while (i < rows.length) {
+      let j = i + 1;
+      while (j < rows.length && rows[j].pts === rows[i].pts) j++;
+      const block = rows.slice(i, j);
+      out.push(...(block.length > 1 ? sortByHeadToHead(block, groupMatches) : block));
+      i = j;
+    }
+    return out;
+  }
+
+  function sortByHeadToHead(block, groupMatches) {
+    const teams = new Set(block.map((r) => r.team));
+    const h2h = {};
+    for (const r of block) h2h[r.team] = { pts: 0, gd: 0, gf: 0 };
+    for (const m of groupMatches) {
+      if (!m.score || !m.score.ft) continue;
+      if (!teams.has(m.team1) || !teams.has(m.team2)) continue;
+      const [h, a] = m.score.ft;
+      h2h[m.team1].gf += h; h2h[m.team2].gf += a;
+      h2h[m.team1].gd += h - a; h2h[m.team2].gd += a - h;
+      if (h > a)      h2h[m.team1].pts += 3;
+      else if (h < a) h2h[m.team2].pts += 3;
+      else            { h2h[m.team1].pts++; h2h[m.team2].pts++; }
+    }
+    return [...block].sort((a, b) => {
+      const A = h2h[a.team], B = h2h[b.team];
+      return B.pts - A.pts || B.gd - A.gd || B.gf - A.gf
+        || b.gd - a.gd || b.gf - a.gf;
+    });
+  }
+
+  function getGroupStandings(group) {
+    return buildGroupTable(group).map((r) => r.team);
+  }
+
   return {
     init,
     getMatches,
@@ -200,5 +272,7 @@ const Data = (() => {
     flagImg,
     getFifaCodeByName,
     findTeamName,
+    buildGroupTable,
+    getGroupStandings,
   };
 })();

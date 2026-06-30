@@ -387,8 +387,17 @@ header h1 {
 }
 
 .bracket-match.empty {
-  color: #ccc;
   border-color: #f5f5f5;
+}
+
+.bm-team-name.unknown {
+  color: #ccc;
+}
+
+.bm-pens {
+  font-weight: 400;
+  color: #666;
+  font-size: 0.7rem;
 }
 
 .bm-team {

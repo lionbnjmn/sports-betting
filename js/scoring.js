@@ -68,6 +68,19 @@ const Scoring = (() => {
     return 0;
   }
 
+  function groupStandingsPoints(predicted, actual) {
+    if (!predicted || !actual || actual.length !== 4) return 0;
+    const actualTop = new Set(actual.slice(0, 2));
+    let pts = 0;
+    predicted.forEach((team, i) => {
+      if (actual[i] === team) pts += 0.5;
+      const predictedInTopHalf = i < 2;
+      const teamInActualTopHalf = actualTop.has(team);
+      if (predictedInTopHalf === teamInActualTopHalf) pts += 0.5;
+    });
+    return pts;
+  }
+
   function knockoutMatchPoints(pred, actual, round) {
     if (!actual || !actual.score) return 0;
     const total = ROUND_POINTS[round];
@@ -102,6 +115,10 @@ const Scoring = (() => {
 
     if (playerPredictions.group_stage) {
       for (const [group, data] of Object.entries(playerPredictions.group_stage)) {
+        if (data.standings) {
+          const actualStandings = Data.getGroupStandings(group);
+          breakdown.group_standings += groupStandingsPoints(data.standings, actualStandings);
+        }
         if (!data.matches) continue;
         for (const pred of data.matches) {
           const actual = findGroupMatch(pred, group, results);

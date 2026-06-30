@@ -46,25 +46,53 @@
       if (m.num != null) byNum.set(m.num, m);
     }
 
-    function teamHtml(name, goal) {
-      const fifa = Data.getFifaCodeByName(name);
+    function winnerSide(score) {
+      if (!score) return null;
+      for (const key of ["p", "et", "ft"]) {
+        const s = score[key];
+        if (!s) continue;
+        if (s[0] > s[1]) return "home";
+        if (s[1] > s[0]) return "away";
+      }
+      return null;
+    }
+
+    function resolveTeam(name) {
+      const match = /^([WL])(\d+)$/.exec(name || "");
+      if (!match) return name;
+      const ref = byNum.get(parseInt(match[2], 10));
+      const side = ref && winnerSide(ref.score);
+      if (!side) return name;
+      const wantWinner = match[1] === "W";
+      const winner = side === "home" ? ref.team1 : ref.team2;
+      const loser = side === "home" ? ref.team2 : ref.team1;
+      return wantWinner ? winner : loser;
+    }
+
+    function teamHtml(name, known, goal, pens) {
+      const fifa = known ? Data.getFifaCodeByName(name) : null;
       const flag = fifa ? Data.flagImg(fifa) : "";
-      const goalHtml = goal != null ? `<span class="bm-goal">${goal}</span>` : "";
-      return `<span class="bm-team"><span class="bm-team-name">${flag}${name}</span>${goalHtml}</span>`;
+      const pensHtml = pens != null ? ` <span class="bm-pens">(${pens})</span>` : "";
+      const goalHtml = goal != null ? `<span class="bm-goal">${goal}${pensHtml}</span>` : "";
+      const nameClass = known ? "bm-team-name" : "bm-team-name unknown";
+      return `<span class="bm-team"><span class="${nameClass}">${flag}${name}</span>${goalHtml}</span>`;
     }
 
     function slotHtml(m) {
       if (!m) return `<div class="bracket-match empty"><span class="bm-team"></span><span class="bm-score">vs</span><span class="bm-team"></span></div>`;
       const hasScore = !!(m.score && m.score.ft);
-      const t1Known = !!Data.getFifaCodeByName(m.team1);
-      const t2Known = !!Data.getFifaCodeByName(m.team2);
-      const isEmpty = !hasScore && !(t1Known && t2Known);
+      const team1 = resolveTeam(m.team1);
+      const team2 = resolveTeam(m.team2);
+      const t1Known = !!Data.getFifaCodeByName(team1);
+      const t2Known = !!Data.getFifaCodeByName(team2);
       const [g1, g2] = hasScore ? m.score.ft : [null, null];
+      const pens = m.score && m.score.p ? m.score.p : null;
+      const [p1, p2] = pens ? pens : [null, null];
       return `
-        <div class="bracket-match${isEmpty ? " empty" : ""}${hasScore ? " resolved" : ""}">
-          ${teamHtml(m.team1, g1)}
+        <div class="bracket-match${hasScore ? " resolved" : ""}">
+          ${teamHtml(team1, t1Known, g1, p1)}
           <span class="bm-score">vs</span>
-          ${teamHtml(m.team2, g2)}
+          ${teamHtml(team2, t2Known, g2, p2)}
         </div>
       `;
     }
@@ -88,7 +116,7 @@
     for (const group of GROUPS) {
       const groupTeams = Data.getTeamsByGroup(group);
       const groupMatches = Data.getMatchesByGroup(group);
-      const table = buildTable(groupTeams, groupMatches);
+      const table = Data.buildGroupTable(group);
       html += `<div class="group-card">`;
       html += `<h3>Group ${group}</h3>`;
       html += renderTable(table);
@@ -96,29 +124,6 @@
       html += `</div>`;
     }
     container.innerHTML = html;
-  }
-
-  function buildTable(teams, matches) {
-    const stats = {};
-    for (const t of teams) {
-      stats[t.name] = { fifaCode: t.fifa_code, played: 0, won: 0, drawn: 0, lost: 0, gf: 0, ga: 0, pts: 0 };
-    }
-    for (const m of matches) {
-      if (!m.score || !m.score.ft) continue;
-      const [h, a] = m.score.ft;
-      const t1 = Data.findTeamName(m.team1, stats);
-      const t2 = Data.findTeamName(m.team2, stats);
-      if (!t1 || !t2) continue;
-      stats[t1].played++; stats[t2].played++;
-      stats[t1].gf += h; stats[t1].ga += a;
-      stats[t2].gf += a; stats[t2].ga += h;
-      if (h > a)      { stats[t1].won++; stats[t1].pts += 3; stats[t2].lost++; }
-      else if (h < a) { stats[t2].won++; stats[t2].pts += 3; stats[t1].lost++; }
-      else            { stats[t1].drawn++; stats[t2].drawn++; stats[t1].pts++; stats[t2].pts++; }
-    }
-    return Object.entries(stats)
-      .map(([team, s]) => ({ team, flag: Data.flagImg(s.fifaCode), ...s, gd: s.gf - s.ga }))
-      .sort((a, b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf);
   }
 
   function renderTable(rows) {
