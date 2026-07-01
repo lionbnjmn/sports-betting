@@ -84,11 +84,16 @@ header h1 {
 /* Leaderboard */
 .leaderboard-row {
   display: grid;
-  grid-template-columns: 2rem 1fr 4rem;
+  grid-template-columns: 2rem 1fr 3rem 3rem 4rem;
   align-items: baseline;
   padding: 0.4rem 0;
   border-bottom: 1px solid #eee;
   font-size: 0.9rem;
+}
+
+.leaderboard-row .stage-pts {
+  text-align: right;
+  color: #666;
 }
 
 .leaderboard-row:last-child {
@@ -115,7 +120,7 @@ header h1 {
 
 .leaderboard-header {
   display: grid;
-  grid-template-columns: 2rem 1fr 4rem;
+  grid-template-columns: 2rem 1fr 3rem 3rem 4rem;
   padding: 0.4rem 0;
   font-size: 0.75rem;
   color: #999;
@@ -239,6 +244,10 @@ header h1 {
   text-align: right;
 }
 
+.prediction-match.correct {
+  background-color: #86efac;
+}
+
 .prediction-match.correct .pred-score {
   color: #111;
 }
@@ -247,8 +256,12 @@ header h1 {
   color: #999;
 }
 
+.prediction-match.partial {
+  background-color: #dcfce7;
+}
+
 .prediction-match.partial .pred-score {
-  color: #666;
+  color: #111;
 }
 
 .prediction-match .pred-score {
@@ -265,6 +278,33 @@ header h1 {
 }
 
 .prediction-match .actual-score {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.prediction-winner {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  border-bottom: 1px solid #eee;
+}
+
+.prediction-winner .winner-name {
+  font-weight: 700;
+}
+
+.prediction-winner.correct .winner-name {
+  color: #111;
+}
+
+.prediction-winner.wrong {
+  color: #999;
+}
+
+.prediction-winner .actual-score {
   font-size: 0.75rem;
   color: #999;
 }

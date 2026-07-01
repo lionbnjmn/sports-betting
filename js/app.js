@@ -32,6 +32,8 @@ const App = (() => {
 
     const results = Data.getMatches();
 
+    Data.validatePredictionTeams(predictions);
+
     Fixtures.renderTicker();
     Fixtures.renderRecentFixtures();
 

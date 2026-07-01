@@ -4,7 +4,6 @@ const Predictions = (() => {
     { label: "Round of 16", lo: 89, hi: 96 },
     { label: "Quarter-finals", lo: 97, hi: 100 },
     { label: "Semi-finals", lo: 101, hi: 102 },
-    { label: "Third place", lo: 103, hi: 103 },
     { label: "Final", lo: 104, hi: 104 },
   ];
 
@@ -158,14 +157,15 @@ const Predictions = (() => {
       for (let num = round.lo; num <= round.hi; num++) {
         const pred = byNum.get(num);
         if (!pred) continue;
-        html += renderKoMatch(pred);
+        html += renderKoMatch(pred, player);
       }
       html += "</div>";
     }
+    html += renderWinnerSection(player);
     container.innerHTML = html;
   }
 
-  function renderKoMatch(pred) {
+  function renderKoMatch(pred, player) {
     const predScore = parsePredScore(pred.score);
     const actual = resultsByNum.get(pred.num);
     const fs = actual ? actualFinalScore(actual.score) : null;
@@ -174,10 +174,14 @@ const Predictions = (() => {
     let actualDisplay = "";
     if (fs) {
       const aSide = actualWinnerSide(actual.score);
-      const pSide = predWinnerSide(predScore);
+      const predWinnerName = Scoring.predictedWinnerName(pred, player);
+      const actualName = Scoring.actualWinnerName(actual);
       const scoreMatch = predScore && predScore[0] === fs[0] && predScore[1] === fs[1];
-      if (scoreMatch) statusClass = "correct";
-      else if (pSide && aSide && pSide === aSide) statusClass = "partial";
+      const winnerMatch =
+        predWinnerName && actualName &&
+        predWinnerName.toLowerCase() === actualName.toLowerCase();
+      if (scoreMatch && winnerMatch) statusClass = "correct";
+      else if (winnerMatch || scoreMatch) statusClass = "partial";
       else statusClass = "wrong";
       actualDisplay = `<span class="actual-score">(${fs[0]}-${fs[1]})</span>`;
     }
@@ -190,6 +194,35 @@ const Predictions = (() => {
         <span class="pred-score">${predScoreDisplay}</span>
         <span class="team">${pred.team2}</span>
         <span class="actual-slot">${actualDisplay}</span>
+      </div>
+    `;
+  }
+
+  function renderWinnerSection(player) {
+    const predWinner = player.winner ? String(player.winner).trim() : "";
+    const final = resultsByNum.get(104);
+    const actualWinner = final ? Scoring.actualWinnerName(final) : null;
+
+    let statusClass = "";
+    let actualDisplay = "";
+    if (actualWinner) {
+      if (predWinner &&
+          predWinner.toLowerCase() === actualWinner.toLowerCase()) {
+        statusClass = "correct";
+      } else if (predWinner) {
+        statusClass = "wrong";
+      }
+      actualDisplay = `<span class="actual-score">(${actualWinner})</span>`;
+    }
+
+    const display = predWinner || "—";
+    return `
+      <div class="prediction-group">
+        <h3>Winner</h3>
+        <div class="prediction-winner ${statusClass}">
+          <span class="winner-name">${display}</span>
+          <span class="actual-slot">${actualDisplay}</span>
+        </div>
       </div>
     `;
   }

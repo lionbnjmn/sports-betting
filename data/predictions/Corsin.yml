@@ -376,126 +376,126 @@ knockout:
   - num: 73
     team1: South Africa
     team2: Canada
-    score:
+    score: 1-2
   - num: 74
     team1: Germany
     team2: Paraguay
-    score:
+    score: 3-1
   - num: 75
     team1: Netherlands
     team2: Morocco
-    score:
+    score: 3-2
   - num: 76
     team1: Brazil
     team2: Japan
-    score:
+    score: 2-0
   - num: 77
     team1: France
     team2: Sweden
-    score:
+    score: 4-1
   - num: 78
     team1: Ivory Coast
     team2: Norway
-    score:
+    score: 1-1
   - num: 79
     team1: Mexico
     team2: Ecuador
-    score:
+    score: 1-2
   - num: 80
     team1: England
     team2: DR Congo
-    score:
+    score: 2-0
   - num: 81
     team1: USA
     team2: Bosnia & Herzegovina
-    score:
+    score: 1-3
   - num: 82
     team1: Belgium
     team2: Senegal
-    score:
+    score: 2-0
   - num: 83
     team1: Portugal
     team2: Croatia
-    score:
+    score: 0-1
   - num: 84
     team1: Spain
     team2: Austria
-    score:
+    score: 2-0
   - num: 85
     team1: Switzerland
     team2: Algeria
-    score:
+    score: 2-1
   - num: 86
     team1: Argentina
     team2: Cape Verde
-    score:
+    score: 3-1
   - num: 87
     team1: Colombia
     team2: Ghana
-    score:
+    score: 2-1
   - num: 88
     team1: Australia
     team2: Egypt
-    score:
+    score: 1-2
   # Round of 16
   - num: 89
-    team1: W74
-    team2: W77
-    score:
+    team1: Germany
+    team2: France
+    score: 1-3
   - num: 90
-    team1: W73
-    team2: W75
-    score:
+    team1: Canada
+    team2: Netherlands
+    score: 0-3
   - num: 91
-    team1: W76
-    team2: W78
-    score:
+    team1: Brazil
+    team2: Norway
+    score: 3-1
   - num: 92
-    team1: W79
-    team2: W80
-    score:
+    team1: Ecuador
+    team2: England
+    score: 1-1
   - num: 93
-    team1: W83
-    team2: W84
-    score:
+    team1: Croatia
+    team2: Spain
+    score: 0-1
   - num: 94
-    team1: W81
-    team2: W82
-    score:
+    team1: Bosnia & Herzegovina
+    team2: Belgium
+    score: 0-2
   - num: 95
-    team1: W86
-    team2: W88
-    score:
+    team1: Argentina
+    team2: Egypt
+    score: 3-0
   - num: 96
-    team1: W85
-    team2: W87
-    score:
+    team1: Switzerland
+    team2: Colombia
+    score: 2-1
   # Quarter-finals
   - num: 97
-    team1: W89
-    team2: W90
-    score:
+    team1: France
+    team2: Netherlands
+    score: 2-1
   - num: 98
-    team1: W93
-    team2: W94
-    score:
+    team1: Spain
+    team2: Belgium
+    score: 3-1
   - num: 99
-    team1: W91
-    team2: W92
-    score:
+    team1: Brazil
+    team2: England
+    score: 2-2
   - num: 100
-    team1: W95
-    team2: W96
-    score:
+    team1: Argentina
+    team2: Switzerland
+    score: 1-1
   # Semi-finals
   - num: 101
-    team1: W97
-    team2: W98
-    score:
+    team1: France
+    team2: Spain
+    score: 2-2
   - num: 102
-    team1: W99
-    team2: W100
-    score:
+    team1: Brazil
+    team2: Argentina
+    score: 3-2
   # Third place
   - num: 103
     team1: L101
@@ -503,6 +503,7 @@ knockout:
     score:
   # Final
   - num: 104
-    team1: W101
-    team2: W102
-    score:
+    team1: France
+    team2: Brazil
+    score: 1-2
+winner: Brazil

@@ -161,6 +161,54 @@ const Data = (() => {
     });
   }
 
+  function isBracketPlaceholder(s) {
+    return typeof s === "string" && /^[WL]\d+$/.test(s.trim());
+  }
+
+  function buildKnownNameSet() {
+    const set = new Set();
+    for (const t of teams || []) {
+      if (t.name) set.add(t.name.toLowerCase());
+      if (t.name_normalised) set.add(t.name_normalised.toLowerCase());
+    }
+    return set;
+  }
+
+  function validatePredictionTeams(allPredictions) {
+    if (!teams) return [];
+    const known = buildKnownNameSet();
+    const issues = [];
+
+    const check = (player, location, value) => {
+      if (value == null || value === "") return;
+      const str = String(value).trim();
+      if (!str) return;
+      if (isBracketPlaceholder(str)) return;
+      if (known.has(str.toLowerCase())) return;
+      issues.push({ player: player.name, location, value: str });
+    };
+
+    for (const player of allPredictions || []) {
+      if (Array.isArray(player.knockout)) {
+        for (const pred of player.knockout) {
+          check(player, `knockout #${pred.num} team1`, pred.team1);
+          check(player, `knockout #${pred.num} team2`, pred.team2);
+        }
+      }
+      check(player, "winner", player.winner);
+    }
+
+    if (issues.length > 0) {
+      console.warn(
+        `[Predictions] ${issues.length} unknown team name(s) — must match "name" (or "name_normalised") in data/bracket/teams.json:`,
+      );
+      for (const i of issues) {
+        console.warn(`  ${i.player} · ${i.location}: "${i.value}"`);
+      }
+    }
+    return issues;
+  }
+
   function getFifaCodeByName(name) {
     if (!teams) return null;
     if (!nameIndex) {
@@ -274,5 +322,6 @@ const Data = (() => {
     findTeamName,
     buildGroupTable,
     getGroupStandings,
+    validatePredictionTeams,
   };
 })();

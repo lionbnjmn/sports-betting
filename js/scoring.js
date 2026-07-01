@@ -7,6 +7,24 @@ const Scoring = (() => {
     final: 32,
   };
 
+  const SUCCESSOR_NUM = {
+    74: 89, 77: 89,
+    73: 90, 75: 90,
+    76: 91, 78: 91,
+    79: 92, 80: 92,
+    83: 93, 84: 93,
+    81: 94, 82: 94,
+    86: 95, 88: 95,
+    85: 96, 87: 96,
+    89: 97, 90: 97,
+    93: 98, 94: 98,
+    91: 99, 92: 99,
+    95: 100, 96: 100,
+    97: 101, 98: 101,
+    99: 102, 100: 102,
+    101: 104, 102: 104,
+  };
+
   function getRoundForNum(num) {
     if (num >= 73 && num <= 88) return "round_of_32";
     if (num >= 89 && num <= 96) return "round_of_16";
@@ -60,11 +78,28 @@ const Scoring = (() => {
     return null;
   }
 
-  function predictedWinnerName(pred) {
+  function predictedWinnerName(pred, playerPredictions) {
     const sc = parseScore(pred.score);
-    if (!sc) return null;
-    if (sc[0] > sc[1]) return pred.team1;
-    if (sc[1] > sc[0]) return pred.team2;
+    if (sc) {
+      if (sc[0] > sc[1]) return pred.team1;
+      if (sc[1] > sc[0]) return pred.team2;
+    }
+    if (pred.num === 104) {
+      const w = (playerPredictions && playerPredictions.winner) || null;
+      return w && String(w).trim() ? String(w).trim() : null;
+    }
+    const successorNum = SUCCESSOR_NUM[pred.num];
+    if (successorNum == null) return null;
+    const knockout = playerPredictions && playerPredictions.knockout;
+    if (!Array.isArray(knockout)) return null;
+    const successor = knockout.find((p) => p.num === successorNum);
+    if (!successor) return null;
+    const t1 = (pred.team1 || "").toLowerCase();
+    const t2 = (pred.team2 || "").toLowerCase();
+    const s1 = (successor.team1 || "").toLowerCase();
+    const s2 = (successor.team2 || "").toLowerCase();
+    if (s1 && (s1 === t1 || s1 === t2)) return successor.team1;
+    if (s2 && (s2 === t1 || s2 === t2)) return successor.team2;
     return null;
   }
 
@@ -102,7 +137,7 @@ const Scoring = (() => {
     return pts;
   }
 
-  function knockoutMatchPoints(pred, actual, round) {
+  function knockoutMatchPoints(pred, actual, round, playerPredictions) {
     if (!actual || !actual.score) return 0;
     const total = ROUND_POINTS[round];
     if (!total) return 0;
@@ -110,7 +145,7 @@ const Scoring = (() => {
 
     let pts = 0;
     const actualWinner = actualWinnerName(actual);
-    const predWinner = predictedWinnerName(pred);
+    const predWinner = predictedWinnerName(pred, playerPredictions);
     if (actualWinner && predWinner &&
         predWinner.toLowerCase() === actualWinner.toLowerCase()) {
       pts += half;
@@ -156,7 +191,7 @@ const Scoring = (() => {
         const round = getRoundForNum(pred.num);
         if (!round) continue;
         const actual = findActualByNum(pred.num, results);
-        breakdown[round] += knockoutMatchPoints(pred, actual, round);
+        breakdown[round] += knockoutMatchPoints(pred, actual, round, playerPredictions);
       }
     }
 
@@ -198,8 +233,16 @@ const Scoring = (() => {
     if (!round) return 0;
     const pred = playerPredictions.knockout.find((p) => p.num === num);
     if (!pred) return 0;
-    return knockoutMatchPoints(pred, match, round);
+    return knockoutMatchPoints(pred, match, round, playerPredictions);
   }
 
-  return { calculatePoints, calculateAllPlayers, getPointsForMatch };
+  return {
+    calculatePoints,
+    calculateAllPlayers,
+    getPointsForMatch,
+    predictedWinnerName,
+    actualWinnerName,
+    parseScore,
+    finalScore,
+  };
 })();
